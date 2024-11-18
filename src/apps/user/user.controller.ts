@@ -12,13 +12,15 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from 'src/libs/auth/guards/jwt-auth.guard';
 import { CurrentUser } from 'src/libs/decorators/current-user.decorator';
+import { SiginDto } from './dto/signin.dto';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
   @Post() // 회원 가입
   signup(@Body() createUserDto: CreateUserDto) {
-    return this.userService.createUser(createUserDto);
+    this.userService.createUser(createUserDto);
+    return;
   }
 
   @Get() // 회원 정보 조회
@@ -33,12 +35,19 @@ export class UserController {
     @CurrentUser() user: any,
     @Body() updateUserDto: UpdateUserDto,
   ) {
-    return this.userService.updateUser(user.no, updateUserDto);
+    this.userService.updateUser(user.no, updateUserDto);
+    return;
   }
 
   @Delete() // 회원 탈퇴
   @UseGuards(JwtAuthGuard)
   withdraw(@CurrentUser() user: any) {
-    return this.userService.withraw(user.no);
+    this.userService.withraw(user.no);
+    return;
+  }
+
+  @Patch('/signin')
+  signin(@Body() signinDto: SiginDto) {
+    return this.userService.signin(signinDto);
   }
 }

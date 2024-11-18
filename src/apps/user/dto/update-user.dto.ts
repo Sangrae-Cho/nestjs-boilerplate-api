@@ -1,4 +1,4 @@
-import { IsEmail, Length, IsDate, IsOptional } from 'class-validator';
+import { Length, IsDate, IsOptional } from 'class-validator';
 
 export class UpdateUserDto {
   @IsOptional()
@@ -8,9 +8,4 @@ export class UpdateUserDto {
   @IsOptional()
   @IsDate()
   birthDate?: Date;
-
-  @IsOptional()
-  @IsEmail()
-  @Length(150)
-  email?: string;
 }
