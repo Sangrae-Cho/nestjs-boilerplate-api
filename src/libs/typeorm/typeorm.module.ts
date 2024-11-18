@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { NamingStrategy } from './strategies/naming-strategy';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         database: process.env.DB_NAME || 'test',
         entities: [__dirname + '/../**/*.entity{.ts,.js}'], // 엔티티 경로
         synchronize: process.env.PROCESS_ENV === 'local' ? true : false, // 개발 환경에서만 true, 프로덕션에서는 false 권장
+        namingStrategy: new NamingStrategy(),
       }),
     }),
   ],

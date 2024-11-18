@@ -4,10 +4,7 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  BeforeInsert,
-  BeforeUpdate,
 } from 'typeorm';
-import * as bcrypt from 'bcrypt';
 
 // Enum 선언
 export enum UserStatus {
@@ -29,7 +26,7 @@ export class User {
 
   // 생년월일
   @Column({ type: 'date', nullable: true })
-  birth_date: Date;
+  birthDate: Date;
 
   // 이메일 (유니크)
   @Column({ type: 'varchar', length: 150, unique: true, nullable: false })
@@ -45,11 +42,11 @@ export class User {
 
   // 가입 일시
   @CreateDateColumn({ type: 'timestamp' })
-  created_at: Date;
+  createdAt: Date;
 
   // 마지막 수정 일시
   @UpdateDateColumn({ type: 'timestamp' })
-  updated_at: Date;
+  updatedAt: Date;
 
   // 회원 상태 (예: 활성, 비활성)
   @Column({
@@ -61,14 +58,5 @@ export class User {
 
   // 마지막 로그인 일시
   @Column({ type: 'timestamp', nullable: true })
-  last_login: Date | null;
-
-  // 비밀번호 암호화
-  @BeforeInsert()
-  @BeforeUpdate()
-  async hashPassword() {
-    if (this.password) {
-      this.password = await bcrypt.hash(this.password, 10);
-    }
-  }
+  lastLogin: Date | null;
 }
