@@ -4,12 +4,12 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User, UserStatus } from '../../libs/typeorm/entity/user.entity';
+import { User, UserStatus } from '../../libs/typeorm/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import * as bcrypt from 'bcrypt';
-import { SiginDto } from './dto/signin.dto';
+import { SigninDto } from './dto/signin.dto';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
@@ -39,7 +39,7 @@ export class UserService {
     });
   }
 
-  async withraw(no: number): Promise<any> {
+  async withdraw(no: number): Promise<any> {
     return await this.userRepository.update(
       { no },
       { status: UserStatus.WITHDRAW },
@@ -47,7 +47,7 @@ export class UserService {
   }
 
   async signin(
-    signinDto: SiginDto,
+    signinDto: SigninDto,
   ): Promise<{ accessToken: string; refreshToken: string }> {
     const user = await this.userRepository.findOne({
       where: { email: signinDto.email },

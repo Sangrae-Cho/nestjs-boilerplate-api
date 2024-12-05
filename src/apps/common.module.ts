@@ -11,4 +11,4 @@ import { DatabaseModule } from '../libs/typeorm/typeorm.module';
     DatabaseModule,
   ],
 })
-export class AppModule {}
+export class CommonModule {}

@@ -12,7 +12,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from 'src/libs/auth/guards/jwt-auth.guard';
 import { CurrentUser } from 'src/libs/decorators/current-user.decorator';
-import { SiginDto } from './dto/signin.dto';
+import { SigninDto } from './dto/signin.dto';
 
 @Controller('user')
 export class UserController {
@@ -42,12 +42,12 @@ export class UserController {
   @Delete() // 회원 탈퇴
   @UseGuards(JwtAuthGuard)
   withdraw(@CurrentUser() user: any) {
-    this.userService.withraw(user.no);
+    this.userService.withdraw(user.no);
     return;
   }
 
   @Patch('/signin')
-  signin(@Body() signinDto: SiginDto) {
+  signin(@Body() signinDto: SigninDto) {
     return this.userService.signin(signinDto);
   }
 }
